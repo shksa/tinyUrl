@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/jest --coverage --notify",
-    "start": "npm run seed && nodemon src/server.js",
+    "start": "nodemon src/server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "good": "^7.3.0",
+    "good-console": "^6.4.1",
+    "good-squeeze": "^5.0.2",
     "hapi": "^16.6.3",
     "pg": "^7.4.1",
     "sequelize": "^4.35.2",
