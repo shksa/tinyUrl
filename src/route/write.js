@@ -6,6 +6,7 @@ async function recursiveCreate(longurl, shorturlHash, start, size) {
   const createOp = await Models.urls.findOrCreate({
     where: {
       shorturl,
+      longurl,
     },
   });
   if ((createOp[1] === true) || (createOp[0].dataValues.longurl === longurl)) {
