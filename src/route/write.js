@@ -1,6 +1,5 @@
 const getHash = require('../helpers/getHash');
 const Models = require('../../models');
-// const recursiveCreate = require('../helpers/recursiveCreate');
 
 async function recursiveCreate(longurl, shorturlHash, start, size) {
   const shorturl = shorturlHash.substr(start, start + size);
