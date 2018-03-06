@@ -37,5 +37,5 @@ const getShortURLs = (longURLs) => {
 // module.exports = getUrls;
 
 const longURLs = getLongURLs();
-const urlPair = getShortURLs(longURLs);
-module.exports = urlPair;
+const shortAndLongUrlArray = getShortURLs(longURLs);
+module.exports = shortAndLongUrlArray;

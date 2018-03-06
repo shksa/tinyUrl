@@ -1,7 +1,7 @@
-const urlPair = require('../src/helpers/getUrls');
+const shortAndLongUrlArray = require('../src/helpers/getUrls');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('urls', urlPair, {}),
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('urls', shortAndLongUrlArray, {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('urls'),
 };
