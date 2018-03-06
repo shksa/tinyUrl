@@ -1,6 +1,4 @@
-const getHash = require('../helpers/getHash');
 const Models = require('../../models');
-// const recursiveCreate = require('../helpers/recursiveCreate');
 
 async function recursiveCreate(longurl, shorturlHash, start, size) {
   const shorturl = shorturlHash.substr(start, start + size);
@@ -21,16 +19,5 @@ async function recursiveCreate(longurl, shorturlHash, start, size) {
   return recursiveCreate(longurl, shorturlHash, start + 6, size);
 }
 
+module.exports = { recursiveCreate };
 
-const handler = (request, reply) => {
-  const longurlPayload = request.payload.longurl;
-  const shortUrlHash = getHash(longurlPayload);
-  console.log(shortUrlHash);
-  return recursiveCreate(longurlPayload, shortUrlHash, 0, 6).then(result => reply(result));
-};
-
-module.exports = {
-  path: '/write',
-  method: 'POST',
-  handler,
-};
