@@ -7,10 +7,9 @@ describe('Test server for route /write: ', () => {
       url: '/write',
       method: 'POST',
       payload: {
-        longurl: 'http://somerandomurl6',
+        longurl: 'http://somerandomurl15',
       },
     };
-
     Server.inject(options, (response) => {
       expect(response.statusCode).toBe(200);
       done();
@@ -26,6 +25,7 @@ describe('Test server for route /write: ', () => {
       },
     };
     const hash = getHash('http://somerandomurl6').slice(0, 6);
+    console.log(hash);
     Server.inject(options, (response) => {
       expect(response.result).toBe(hash);
       done();

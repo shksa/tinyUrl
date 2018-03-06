@@ -1,23 +1,32 @@
 const getHash = require('../helpers/getHash');
 const Models = require('../../models');
+// const { recursiveCreate } = require('../helpers/recursiveCreate');
 
 async function recursiveCreate(longurl, shorturlHash, start, size) {
   const shorturl = shorturlHash.substr(start, start + size);
-  const createOp = await Models.urls.findOrCreate({
+  console.log(shorturl);
+  const response = await Models.urls.find({
     where: {
       shorturl,
-      longurl,
     },
   });
-  if ((createOp[1] === true) || (createOp[0].dataValues.longurl === longurl)) {
+  if (response === null) {
+    const result = await Models.urls.create({
+      shorturl,
+      longurl,
+    });
+    return result.shorturl;
+  } else if (response.dataValues.longurl === longurl) {
     return shorturl;
   }
   return recursiveCreate(longurl, shorturlHash, start + 6, size);
 }
 
+
 const handler = (request, reply) => {
   const longurlPayload = request.payload.longurl;
   const shortUrlHash = getHash(longurlPayload);
+  console.log(shortUrlHash);
   return recursiveCreate(longurlPayload, shortUrlHash, 0, 6).then(result => reply(result));
 };
 
