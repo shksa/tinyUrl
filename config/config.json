@@ -4,7 +4,12 @@
     "password": "postgres339",
     "database": "urldb",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "pool": {
+      "min": 1,
+      "max:": 100,
+      "acquire": 10000
+    }
   },
   "test": {
     "username": "postgres",

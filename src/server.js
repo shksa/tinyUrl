@@ -4,6 +4,11 @@ const Good = require('good');
 
 const server = new Hapi.Server();
 
+server.connection({
+  port: 5000,
+  host: 'localhost',
+});
+
 server.register({
   register: Good,
   options: {
@@ -24,11 +29,6 @@ server.register({
   if (err) {
     throw err;
   }
-});
-
-server.connection({
-  port: 8000,
-  host: 'localhost',
 });
 
 
