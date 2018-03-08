@@ -1,21 +1,33 @@
 const Models = require('../../models');
+const redis = require('redis');
 
-module.exports = {
-  method: 'GET',
-  path: '/read/{shorturl}',
-  handler: (request, reply) => {
-    const { shorturl } = request.params;
-    Models.urls.find({
-      where: {
-        shorturl,
-      },
-    }).then((obj) => {
-      if (obj) {
-        reply(obj.dataValues.longurl);
-      } else {
-        reply('no url found');
-      }
-    });
+const client = redis.createClient();
+
+module.exports = [
+  {
+    method: 'GET',
+    path: '/read/{shorturl}',
+    handler: (request, response) => {
+      const { shorturl } = request.params;
+      client.hget('shortUrlHash', shorturl, (err, value) => {
+        console.log('redis', err, value);
+        if (value) {
+          response(value);
+        } else {
+          Models.urls.find({
+            where: {
+              shorturl,
+            },
+          }).then((res) => {
+            if (res) {
+              client.hset('shortUrlHash', res.dataValues.shorturl, res.dataValues.longurl, redis.print);
+              response(res.dataValues.longurl);
+            } else {
+              response('url not found');
+            }
+          });
+        }
+      });
+    },
   },
-};
-
+];
