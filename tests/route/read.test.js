@@ -4,7 +4,7 @@ describe('testing read api', () => {
   test('should respond with 200 status', (done) => {
     const options = {
       method: 'GET',
-      url: '/read/67dgd6',
+      url: '/read/xGarXz',
     };
     Server.inject(options, (response) => {
       expect(response.statusCode).toBe(200);
@@ -14,10 +14,20 @@ describe('testing read api', () => {
   test('should respond correct longurl', (done) => {
     const options = {
       method: 'GET',
-      url: '/read/0bAZeJ',
+      url: '/read/M2PZp_',
     };
     Server.inject(options, (response) => {
-      expect(response.result).toBe('http://somerandomurl0');
+      expect(response.result).toBe('http://somerandomurl11');
+      done();
+    });
+  });
+  test('should respond "url not found" ', (done) => {
+    const options = {
+      method: 'GET',
+      url: '/read/abcdef',
+    };
+    Server.inject(options, (response) => {
+      expect(response.result).toBe('url not found');
       done();
     });
   });

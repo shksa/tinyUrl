@@ -25,7 +25,7 @@ describe('Test server for route /write: ', () => {
       },
     };
     const hash = getHash('http://somerandomurl6').slice(0, 6);
-    console.log(hash);
+    // console.log(hash);
     Server.inject(options, (response) => {
       expect(response.result).toBe(hash);
       done();
