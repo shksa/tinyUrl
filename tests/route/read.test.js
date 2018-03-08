@@ -1,4 +1,5 @@
 const Server = require('../../src/server');
+const redis = require('redis');
 
 describe('testing read api', () => {
   test('should respond with 200 status', (done) => {
@@ -29,6 +30,22 @@ describe('testing read api', () => {
     Server.inject(options, (response) => {
       expect(response.result).toBe('url not found');
       done();
+    });
+  });
+  test('redis tests', (done) => {
+    const options = {
+      method: 'GET',
+      url: '/read/AQfHh7',
+    };
+    const client = redis.createClient();
+    Server.inject(options, (response) => {
+      expect(response.result).toBe('http://somerandomurl1');
+      client.hget('shortUrlHash', 'AQfHh7', (err, value) => {
+        if (value) {
+          expect(value).toBe('http://somerandomurl1');
+          done();
+        }
+      });
     });
   });
 });
