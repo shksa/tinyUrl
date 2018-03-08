@@ -1,5 +1,5 @@
 const crypto = require('crypto');
 
-const getHash = inputStr => crypto.createHash('md5').update(inputStr).digest('base64').replace(/\//g, '_');
+const getHash = inputStr => crypto.createHash('md5').update(inputStr).digest('hex');
 
 module.exports = getHash;

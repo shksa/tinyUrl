@@ -26,7 +26,7 @@ const getShortURLs = (longURLs) => {
         });
         break;
       } else {
-        j += 6;
+        j += 1;
       }
     }
   }
