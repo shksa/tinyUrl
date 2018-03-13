@@ -12,7 +12,7 @@ const getLongURLs = () => {
 const getShortURLs = (longURLs) => {
   const maintainExclusive = new Set();
   const urlPair = [];
-  for (let i = 0; i < longURLs.length; i += 1) {
+  for (let i = 0; i < 100000; i += 1) {
     let j = 0;
     while (true) {
       const shortURL = getHash(longURLs[i]).slice(j, j + 6);
